@@ -47,9 +47,10 @@ function expanseAdd(newExpense) {
         const expenseName = createName(newExpense)
         const expenseCategory = createCategory(newExpense)
         const expenseAmount = createAmount(newExpense)
+        const removeIcon = createRemoveIcon()
 
         expenseInfo.append(expenseName, expenseCategory)
-        expenseItem.append(expenseIcon, expenseInfo, expenseAmount)
+        expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon)
         expenseList.append(expenseItem)
     } catch (error) {
         alert('Não foi possível atualizar a lista de despesas.')
@@ -94,4 +95,13 @@ function createAmount(newExpense) {
         .replace('R$', '')}`
 
     return amount
+}
+
+function createRemoveIcon() {
+    const icon = document.createElement('img')
+    icon.classList.add('remove-icon')
+    icon.setAttribute('src', './img/remove.svg')
+    icon.setAttribute('alt', 'remover')
+
+    return icon
 }
