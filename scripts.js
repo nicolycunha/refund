@@ -4,6 +4,7 @@ const expense = document.getElementById('expense')
 const category = document.getElementById('category')
 
 const expenseList = document.querySelector('ul')
+const expenseQuantity = document.querySelector('aside header p span')
 
 amount.oninput = () => {
     let value = amount.value.replace(/\D/g, '')
@@ -35,6 +36,7 @@ form.onsubmit = event => {
     }
 
     expanseAdd(newExpense)
+    updateTotals()
 }
 
 function expanseAdd(newExpense) {
@@ -59,49 +61,86 @@ function expanseAdd(newExpense) {
 }
 
 function createIcon(newExpense) {
-    const icon = document.createElement('img')
-    icon.setAttribute('src', `img/${newExpense.category_id}.svg`)
-    icon.setAttribute('alt', newExpense.category_name)
+    try {
+        const icon = document.createElement('img')
+        icon.setAttribute('src', `img/${newExpense.category_id}.svg`)
+        icon.setAttribute('alt', newExpense.category_name)
 
-    return icon
+        return icon
+    } catch (error) {
+        throw error
+    }
 }
 
 function createInfo() {
-    const info = document.createElement('div')
-    info.classList.add('expense-info')
+    try {
+        const info = document.createElement('div')
+        info.classList.add('expense-info')
 
-    return info
+        return info
+    } catch (error) {
+        throw error
+    }
 }
 
 function createName(newExpense) {
-    const name = document.createElement('strong')
-    name.textContent = newExpense.expense
+    try {
+        const name = document.createElement('strong')
+        name.textContent = newExpense.expense
 
-    return name
+        return name
+    } catch (error) {
+        throw error
+    }
 }
 
 function createCategory(newExpense) {
-    const category = document.createElement('span')
-    category.textContent = newExpense.category_name
+    try {
+        const category = document.createElement('span')
+        category.textContent = newExpense.category_name
 
-    return category
+        return category
+    } catch (error) {
+        throw error
+    }
 }
 
 function createAmount(newExpense) {
-    const amount = document.createElement('span')
-    amount.classList.add('expense-amount')
-    amount.innerHTML = `<small>R$</small>${newExpense.amount
-        .toUpperCase()
-        .replace('R$', '')}`
+    try {
+        const amount = document.createElement('span')
+        amount.classList.add('expense-amount')
+        amount.innerHTML = `<small>R$</small>${newExpense.amount
+            .toUpperCase()
+            .replace('R$', '')}`
 
-    return amount
+        return amount
+    } catch (error) {
+        throw error
+    }
 }
 
 function createRemoveIcon() {
-    const icon = document.createElement('img')
-    icon.classList.add('remove-icon')
-    icon.setAttribute('src', './img/remove.svg')
-    icon.setAttribute('alt', 'remover')
+    try {
+        const icon = document.createElement('img')
+        icon.classList.add('remove-icon')
+        icon.setAttribute('src', './img/remove.svg')
+        icon.setAttribute('alt', 'remover')
 
-    return icon
+        return icon
+    } catch (error) {
+        throw error
+    }
+}
+
+function updateTotals() {
+    try {
+        const items = expenseList.children
+
+        expenseQuantity.textContent = `${items.length} ${
+            items.length > 1 ? 'despesas' : 'despesa'
+        }`
+    } catch (error) {
+        console.log(error)
+        alert('Não foi possível alterar os totais.')
+    }
 }
