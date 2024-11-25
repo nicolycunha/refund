@@ -43,12 +43,13 @@ function expanseAdd(newExpense) {
         expenseItem.classList.add('expense')
 
         const expenseIcon = createIcon(newExpense)
-        const expenseInfo = createInfo(newExpense)
+        const expenseInfo = createInfo()
         const expenseName = createName(newExpense)
         const expenseCategory = createCategory(newExpense)
+        const expenseAmount = createAmount(newExpense)
 
         expenseInfo.append(expenseName, expenseCategory)
-        expenseItem.append(expenseIcon, expenseInfo)
+        expenseItem.append(expenseIcon, expenseInfo, expenseAmount)
         expenseList.append(expenseItem)
     } catch (error) {
         alert('Não foi possível atualizar a lista de despesas.')
@@ -64,7 +65,7 @@ function createIcon(newExpense) {
     return icon
 }
 
-function createInfo(newExpense) {
+function createInfo() {
     const info = document.createElement('div')
     info.classList.add('expense-info')
 
@@ -83,4 +84,14 @@ function createCategory(newExpense) {
     category.textContent = newExpense.category_name
 
     return category
+}
+
+function createAmount(newExpense) {
+    const amount = document.createElement('span')
+    amount.classList.add('expense-amount')
+    amount.innerHTML = `<small>R$</small>${newExpense.amount
+        .toUpperCase()
+        .replace('R$', '')}`
+
+    return amount
 }
