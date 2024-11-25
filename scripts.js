@@ -4,6 +4,7 @@ const expense = document.getElementById('expense')
 const category = document.getElementById('category')
 
 const expenseList = document.querySelector('ul')
+const expensesTotal = document.querySelector('aside header h2')
 const expenseQuantity = document.querySelector('aside header p span')
 
 amount.oninput = () => {
@@ -139,8 +140,44 @@ function updateTotals() {
         expenseQuantity.textContent = `${items.length} ${
             items.length > 1 ? 'despesas' : 'despesa'
         }`
+
+        const expenseAmount = calculateExpenseAmount(items)
+
+        const symbolBRL = document.createElement('small')
+        symbolBRL.textContent = 'R$'
+
+        expensesTotal.innerHTML = ''
+        expensesTotal.append(symbolBRL, expenseAmount)
     } catch (error) {
         console.log(error)
         alert('Não foi possível alterar os totais.')
+    }
+}
+
+function calculateExpenseAmount(items) {
+    try {
+        let total = 0
+
+        for (let item = 0; item < items.length; item++) {
+            const itemAmount = items[item].querySelector('.expense-amount')
+
+            let value = itemAmount.textContent
+                .replace(/[^\d,]/g, '')
+                .replace(',', '.')
+
+            value = parseFloat(value)
+
+            if (isNaN(value)) {
+                return alert(
+                    'Não foi possível calcular o total. O valor não parece ser um número'
+                )
+            }
+
+            total += Number(value)
+        }
+
+        return formatCurrencyBRL(total).toUpperCase().replace('R$', '')
+    } catch (error) {
+        throw error
     }
 }
