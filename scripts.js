@@ -38,6 +38,7 @@ form.onsubmit = event => {
 
     expanseAdd(newExpense)
     updateTotals()
+    formClear()
 }
 
 function expanseAdd(newExpense) {
@@ -190,3 +191,11 @@ expenseList.addEventListener('click', function (event) {
 
     updateTotals()
 })
+
+function formClear() {
+    expense.value = ''
+    category.value = ''
+    amount.value = ''
+
+    expense.focus()
+}
