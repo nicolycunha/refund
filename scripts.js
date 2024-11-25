@@ -42,14 +42,45 @@ function expanseAdd(newExpense) {
         const expenseItem = document.createElement('li')
         expenseItem.classList.add('expense')
 
-        const expenseIcon = document.createElement('img')
-        expenseIcon.setAttribute('src', `img/${newExpense.category_id}.svg`)
-        expenseIcon.setAttribute('alt', newExpense.category_name)
+        const expenseIcon = createIcon(newExpense)
+        const expenseInfo = createInfo(newExpense)
+        const expenseName = createName(newExpense)
+        const expenseCategory = createCategory(newExpense)
 
-        expenseItem.append(expenseIcon)
+        expenseInfo.append(expenseName, expenseCategory)
+        expenseItem.append(expenseIcon, expenseInfo)
         expenseList.append(expenseItem)
     } catch (error) {
         alert('Não foi possível atualizar a lista de despesas.')
         console.log(error)
     }
+}
+
+function createIcon(newExpense) {
+    const icon = document.createElement('img')
+    icon.setAttribute('src', `img/${newExpense.category_id}.svg`)
+    icon.setAttribute('alt', newExpense.category_name)
+
+    return icon
+}
+
+function createInfo(newExpense) {
+    const info = document.createElement('div')
+    info.classList.add('expense-info')
+
+    return info
+}
+
+function createName(newExpense) {
+    const name = document.createElement('strong')
+    name.textContent = newExpense.expense
+
+    return name
+}
+
+function createCategory(newExpense) {
+    const category = document.createElement('span')
+    category.textContent = newExpense.category_name
+
+    return category
 }
